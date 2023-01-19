@@ -29,8 +29,7 @@ const percentToFloat = (str: string): number => {
     return number * 0.01
 }
 
-export const percentToFloatFP = () => {}
-
+export const percentToFloatFP = (str: string): number => 0
 // 4
 const moneyToFloat = (str: string): number => {
     const replaced = str.replace('$', '')
@@ -38,12 +37,12 @@ const moneyToFloat = (str: string): number => {
     return number
 }
 
-export const moneyToFloatFP = () => {}
+export const moneyToFloatFP = (str: string): number => 0
 
 // 5
 const applyDiscount = (price: string, discount: string): number => {
-    const cost = moneyToFloat(price)
-    const savings = percentToFloat(discount)
+    const cost = moneyToFloatFP(price)
+    const savings = percentToFloatFP(discount)
     return cost - cost * savings
 }
 
