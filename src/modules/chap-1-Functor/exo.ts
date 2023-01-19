@@ -1,3 +1,5 @@
+import { IdFunctor } from "./functor"
+
 /*
 Transform this functions to be written in a functional way
 */
