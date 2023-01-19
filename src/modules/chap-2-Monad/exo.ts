@@ -10,12 +10,13 @@ Transform this functions to be written in a functional way
 // if the color is not found return 'no color'
 const findColor = (name: string) => ({ red: '#ff4444', blue: '#3b5998', yellow: '#fff68f' }[name])
 
-export const findColorFP = (name: string) => E.fromNullable({ red: '#ff4444', blue: '#3b5998', yellow: '#fff68f' }[name])
+export const findColorFP = (name: string) => {}
 
 // 2 ---------
 const getPort = () => {
+	const path = __dirname + '/config.json'
 	try {
-		const str = fs.readFileSync('config.json')
+		const str = fs.readFileSync(path)
 		const config = JSON.parse(Buffer.from(str).toString())
 		return config.port
 	} catch (e) {
