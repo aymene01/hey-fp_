@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {} from './monad'
+import * as E from './monad'
 
 /*
 Transform this functions to be written in a functional way
@@ -11,7 +11,7 @@ Transform this functions to be written in a functional way
 const findColor = (name: string) =>
   ({ red: "#ff4444", blue: "#3b5998", yellow: "#fff68f" }[name]);
 
-export const findColorFP = (name: string) => {};
+export const findColorFP = (name: string) => E.fromNullable(({ red: "#ff4444", blue: "#3b5998", yellow: "#fff68f" }[name]));
 
 // 2 --------- 
 const getPort = () => {
