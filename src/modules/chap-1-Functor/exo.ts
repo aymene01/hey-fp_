@@ -1,4 +1,4 @@
-import { IdFunctor } from "./functor"
+import { IdFunctor } from "./types"
 
 /*
 Transform this functions to be written in a functional way
@@ -16,6 +16,7 @@ export const getNextCharForNumberStringFP = () => {}
 
 // 2
 const first = (xs: number[]): number  => xs[0];
+
 const halfTheFirstLargeNumber = (xs: number[]): string => {
     const found = xs.filter(x => x >= 20);
     const answer = first(found) / 2;
