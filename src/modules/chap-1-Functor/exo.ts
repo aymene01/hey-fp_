@@ -1,5 +1,5 @@
 /*
-Transform this functions to be more functional
+Transform this functions to be written in a functional way
 */
 
 // 1
