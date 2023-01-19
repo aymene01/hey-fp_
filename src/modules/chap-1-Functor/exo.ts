@@ -1,4 +1,4 @@
-import { IdFunctor } from "./types"
+import { IdFunctor } from './types'
 
 /*
 Transform this functions to be written in a functional way
@@ -15,38 +15,38 @@ const getNextCharForNumberString = (str: string): string => {
 export const getNextCharForNumberStringFP = () => {}
 
 // 2
-const first = (xs: number[]): number  => xs[0];
+const first = (xs: number[]): number => xs[0]
 
 const halfTheFirstLargeNumber = (xs: number[]): string => {
-    const found = xs.filter(x => x >= 20);
-    const answer = first(found) / 2;
-    return `The answer is ${answer}`;
-  };
-  
+	const found = xs.filter(x => x >= 20)
+	const answer = first(found) / 2
+	return `The answer is ${answer}`
+}
+
 export const halfTheFirstLargeNumberFP = () => {}
 
 // 3
 const percentToFloat = (str: string): number => {
-    const replaced = str.replace('%', '')
-    const number = parseFloat(replaced)
-    return number * 0.01
+	const replaced = str.replace('%', '')
+	const number = parseFloat(replaced)
+	return number * 0.01
 }
 
 export const percentToFloatFP = (str: string): number => 0
 // 4
 const moneyToFloat = (str: string): number => {
-    const replaced = str.replace('$', '')
-    const number = parseFloat(replaced)
-    return number
+	const replaced = str.replace('$', '')
+	const number = parseFloat(replaced)
+	return number
 }
 
 export const moneyToFloatFP = (str: string): number => 0
 
 // 5
 const applyDiscount = (price: string, discount: string): number => {
-    const cost = moneyToFloatFP(price)
-    const savings = percentToFloatFP(discount)
-    return cost - cost * savings
+	const cost = moneyToFloatFP(price)
+	const savings = percentToFloatFP(discount)
+	return cost - cost * savings
 }
 
 export const applyDiscountFP = () => {}

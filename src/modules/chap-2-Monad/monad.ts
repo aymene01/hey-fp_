@@ -17,16 +17,11 @@ const Right = <T>(value: T): Right<T> => ({
 const fromNullable = <T, U extends T>(value: T): Right<T> | Left<U> => (value ? Right(value) : Left(value as U))
 
 const tryCatch = <T>(f: () => T): Left<T> | Right<T> => {
-    try {
-        return Right(f())
-    } catch (e) {
-        return Left(e)
-    }
+	try {
+		return Right(f())
+	} catch (e) {
+		return Left(e)
+	}
 }
 
-export {
-    Left,
-    Right,
-    fromNullable,
-    tryCatch,
-}
+export { Left, Right, fromNullable, tryCatch }
