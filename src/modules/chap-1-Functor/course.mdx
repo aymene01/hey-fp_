@@ -1,7 +1,5 @@
 # What is a Functor?
 
-## .map method
-
 A functor is a mathematical concept that is used in functional programming to represent a container or wrapper for a value, along with the ability to apply a function to the value in a predictable way.
 
 In other words, a functor is an object that has a `map` method, which can be used to apply a function to the value wrapped inside the functor.
@@ -21,8 +19,6 @@ const double = () => Box(5).map(num => num * 2)
 
 console.log(double()) // Box(10)
 ```
-
-## .fold method
 
 But in this case we get a `Box` object, which is a functor, and not a number. This is because the `map` method returns a new functor, which is a wrapper around the result of the function.
 
