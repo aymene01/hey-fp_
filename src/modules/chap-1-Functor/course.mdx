@@ -23,7 +23,7 @@ const double = (num: number) =>
 console.log(double(5)) // Box('10')
 ```
 
-But in this case we get a `Box` object, which is a functor, and not a number. This is because the `map` method returns a new functor, which is a wrapper around the result of the function.
+But in this case we get a `Box` object, which is a functor, and not a string. This is because the `map` method returns a new functor, which is a wrapper around the result of the function.
 
 And we want to get the result of the function, not the functor. So we need to unwrap the value from the functor.
 
@@ -43,9 +43,10 @@ const Box = <T>(x: T): Functor<T> => ({
 const double = (num: number): number =>
 	Box(num)
 		.map(num => num * 2)
-		.fold(num => num)
+		.map(doubleNum => doubleNum.toString())
+		.fold(str => str)
 
-console.log(double(5)) // 10
+console.log(double(5)) // '10'
 ```
 
 Nice and simple. Now we can use `fold` method to unwrap the value from the functor and get the result of the function.
