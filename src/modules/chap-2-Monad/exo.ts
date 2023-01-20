@@ -8,7 +8,11 @@ Transform this functions to be written in a functional way
 // 1 ----------
 // get the color from the name and make it uppercase and slice the # char
 // if the color is not found return 'no color'
-const findColor = (name: string) => ({ red: '#ff4444', blue: '#3b5998', yellow: '#fff68f' }[name])
+const findColor = (name: string) => {
+	const found = { red: '#ff4444', blue: '#3b5998', yellow: '#fff68f' }[name]
+
+	return found ? found : null
+}
 
 export const findColorFP = (name: string) => {}
 
