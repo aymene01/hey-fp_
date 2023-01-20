@@ -15,9 +15,12 @@ const Box = <T>(x: T): Functor<T> => ({
 	map: <U>(fn: (x: T) => U): Functor<U> => Box(fn(x)),
 })
 
-const double = (num: number) => Box(num).map(myNum => myNum * 2)
+const double = (num: number) =>
+	Box(num)
+		.map(myNum => myNum * 2)
+		.map(myDoubleNum => myDoubleNum.toString())
 
-console.log(double(5)) // Box(10)
+console.log(double(5)) // Box('10')
 ```
 
 But in this case we get a `Box` object, which is a functor, and not a number. This is because the `map` method returns a new functor, which is a wrapper around the result of the function.
