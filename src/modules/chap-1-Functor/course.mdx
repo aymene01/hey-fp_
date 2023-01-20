@@ -15,9 +15,9 @@ const Box = <T>(x: T): Functor<T> => ({
 	map: <U>(fn: (x: T) => U): Functor<U> => Box(fn(x)),
 })
 
-const double = () => Box(5).map(num => num * 2)
+const double = (num: string) => Box(num).map(myNum => myNum * 2)
 
-console.log(double()) // Box(10)
+console.log(double(5)) // Box(10)
 ```
 
 But in this case we get a `Box` object, which is a functor, and not a number. This is because the `map` method returns a new functor, which is a wrapper around the result of the function.
@@ -37,10 +37,14 @@ const Box = <T>(x: T): Functor<T> => ({
 	fold: <U>(fn: (x: T) => U): U => fn(x),
 })
 
-const double = () =>
-	Box(5)
+const double = (num: number): number =>
+	Box(num)
 		.map(num => num * 2)
 		.fold(num => num)
 
-console.log(double()) // 10
+console.log(double(5)) // 10
 ```
+
+Nice and simple. Now we can use `fold` method to unwrap the value from the functor and get the result of the function.
+
+But in certain case we can have nested functors, like this:
