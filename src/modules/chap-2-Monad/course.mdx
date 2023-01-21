@@ -1,1 +1,81 @@
+# What is a Monad?
 
+A monad is a design pattern in functional programming that is used to create composable units of logic. It is often used to handle side effects, such as input/output or error handling, in a predictable and consistent way.
+
+so let's introduce the monad concept with a simple example.
+
+```ts
+const checkAge = (age: number) => {
+	if (age < 18) {
+		return null
+	}
+	return age
+}
+
+const doubledAge = checkAge(15) * 2
+console.log(doubledAge) // NaN
+```
+
+In this exemple we have a function that check if the age is greater than 18, if it is, it returns the age, otherwise it returns null. This function is not a monad because it is not composable, we can't chain it with other functions.
+
+And if we throw an Error the program will crash.
+
+```ts
+const checkAge = (age: number) => {
+	if (age < 18) {
+		throw new Error('Age must be greater than 18')
+	}
+	return age
+}
+```
+
+So we have to handle the error in a way that the program won't crash. And handle the error in more flexible way. We can do that with a monad. And particularly with the Either monad. The Either monad is a monad that can handle two possible values, a success value or an error value.
+
+```ts
+type Left<T> = {
+	map: <U>(f: (x: T) => U) => Left<T>
+	fold: <U>(f: (x: T) => U, g: (x: T) => U) => U
+	chain: <U>(f: (x: T) => U) => Left<T>
+	inspect: string
+}
+
+type Right<T> = {
+	map: <U>(f: (x: T) => U) => Right<U>
+	fold: <U>(f: (x: T) => U, g: (x: T) => U) => U
+	chain: <U>(f: (x: T) => Right<U>) => Right<U>
+	inspect: string
+}
+
+const Left = <T>(value: T): Left<T> => ({
+	map: <U>(f: (x: T) => U) => Left(value),
+	fold: <U>(f: (x: T) => U, g: (x: T) => U) => f(value),
+	chain: <U>(f: (x: T) => U) => Left(value),
+	inspect: `Left(${value})`,
+})
+
+const Right = <T>(value: T): Right<T> => ({
+	map: <U>(f: (x: T) => U) => Right(f(value)),
+	fold: <U>(f: (x: T) => U, g: (x: T) => U) => g(value),
+	chain: <U>(f: (x: T) => U) => f(value),
+	inspect: `Right(${value})`,
+})
+```
+
+If you looked the previous chapter you can notice that the `map` and `chain` are the same, but we get the `fold` method is different. The `fold` method is used to handle the two possible values, the success value and the error value. The `fold` method takes two functions, the first function is used to handle the error value and the second function is used to handle the success value.
+
+So let's try to refactor the previous code with the Either monad.
+
+```ts
+const checkAge = (age: number) => (age < 18 ? Left('Age must be greater than 18') : Right(age))
+const res = () =>
+	checkAge(15)
+		.map(age => age * 2)
+		.fold(
+			err => err,
+			age => age,
+		)
+```
+
+The `checkAge` function is now a monad, it can be chained with other functions. And the `res` function is a function that handle the error value and the success value.
+
+We have now a perfect way to handle errors in predictable way without dealing with the null value and without crashing the program.

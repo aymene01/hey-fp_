@@ -30,10 +30,7 @@ const percentToFloat = (str: string): number => {
 	return number * 0.01
 }
 
-export const percentToFloatFP = (str: string): number =>
-	Box(str)
-		.map(str => str.replace('%', ''))
-		.fold(str => parseFloat(str) * 0.01)
+export const percentToFloatFP = (str: string): number => 0
 // 4
 const moneyToFloat = (str: string): number => {
 	const replaced = str.replace('$', '')
@@ -41,23 +38,12 @@ const moneyToFloat = (str: string): number => {
 	return number
 }
 
-export const moneyToFloatFP = (str: string): number =>
-	Box(str)
-		.map(str => str.replace('$', ''))
-		.fold(str => parseFloat(str))
+export const moneyToFloatFP = (str: string): number => 0
 
-// 5
 const applyDiscount = (price: string, discount: string): number => {
 	const cost = moneyToFloatFP(price)
 	const savings = percentToFloatFP(discount)
 	return cost - cost * savings
 }
 
-export const applyDiscountFP = (price: string, discount: string) =>
-	Box(price)
-		.map(moneyToFloatFP)
-		.map(cost =>
-			Box(discount)
-				.map(percentToFloatFP)
-				.map(savings => cost - cost * savings),
-		)
+export const applyDiscountFP = (price: string, discount: string): number => 0
