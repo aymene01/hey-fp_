@@ -67,6 +67,7 @@ So let's try to refactor the previous code with the Either monad.
 
 ```ts
 const checkAge = (age: number) => (age < 18 ? Left('Age must be greater than 18') : Right(age))
+
 const res = () =>
 	checkAge(15)
 		.map(age => age * 2)
@@ -74,6 +75,15 @@ const res = () =>
 			err => err,
 			age => age,
 		)
+const res2 = () =>
+	checkAge(20)
+		.map(age => age * 2)
+		.fold(
+			err => err,
+			age => age,
+		)
+console.log(res()) // Age must be greater than 18
+console.log(res2()) // 40
 ```
 
 The `checkAge` function is now a monad, it can be chained with other functions. And the `res` function is a function that handle the error value and the success value.
