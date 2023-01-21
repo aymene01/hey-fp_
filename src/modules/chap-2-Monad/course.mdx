@@ -31,6 +31,8 @@ const checkAge = (age: number) => {
 
 So we have to handle the error in a way that the program won't crash. And handle the error in more flexible way. We can do that with a monad. And particularly with the Either monad. The Either monad is a monad that can handle two possible values, a success value or an error value.
 
+We have the Right monad that represents the success value and the Left monad that represents the error value.
+
 ```ts
 type Left<T> = {
 	map: <U>(f: (x: T) => U) => Left<T>
