@@ -1,4 +1,4 @@
-import { IdFunctor } from './types'
+import { IdFunctor as Box } from './functor'
 
 /*
 Transform this functions to be written in a functional way
@@ -11,8 +11,6 @@ const getNextCharForNumberString = (str: string): string => {
 	const nextNumber = number + 1
 	return String.fromCharCode(nextNumber)
 }
-
-export const getNextCharForNumberStringFP = () => {}
 
 // 2
 const first = (xs: number[]): number => xs[0]
@@ -32,7 +30,10 @@ const percentToFloat = (str: string): number => {
 	return number * 0.01
 }
 
-export const percentToFloatFP = (str: string): number => 0
+export const percentToFloatFP = (str: string): number =>
+	Box(str)
+		.map(str => str.replace('%', ''))
+		.fold(str => parseFloat(str) * 0.01)
 // 4
 const moneyToFloat = (str: string): number => {
 	const replaced = str.replace('$', '')
@@ -40,7 +41,10 @@ const moneyToFloat = (str: string): number => {
 	return number
 }
 
-export const moneyToFloatFP = (str: string): number => 0
+export const moneyToFloatFP = (str: string): number =>
+	Box(str)
+		.map(str => str.replace('$', ''))
+		.fold(str => parseFloat(str))
 
 // 5
 const applyDiscount = (price: string, discount: string): number => {
@@ -49,4 +53,11 @@ const applyDiscount = (price: string, discount: string): number => {
 	return cost - cost * savings
 }
 
-export const applyDiscountFP = () => {}
+export const applyDiscountFP = (price: string, discount: string) =>
+	Box(price)
+		.map(moneyToFloatFP)
+		.map(cost =>
+			Box(discount)
+				.map(percentToFloatFP)
+				.map(savings => cost - cost * savings),
+		)
